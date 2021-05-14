@@ -74,6 +74,58 @@
   font-size:25px;
   font-family:'Times New Roman', Times, serif;
 }
-.classtable{
+
+.main-container{
+  color: black;
+  
+}
+.bbtn {
+  margin-left: 70%;
+}
+.patient{
+  align-content: center;
+  width:200px;
+  border-radius: 20px;
+  margin-left: 30%;
+  opacity: 0.5;
  
+}
+.img{
+  padding-left: 77%;
+}
+.first_aid{
+  width:50px;
+  border-radius: 70px;
+  margin-left: 20%;
+}
+.doctors{
+  align-content: center;
+  width:150px;
+  border-radius: 100px;
+  margin-left: 3%;
+  margin-top: 20px;
+}
+.doctorss{
+  align-content: center;
+  width:200px;
+  border-radius: 100px;
+  margin-left: 5%;
+  margin-top: 20px;
+}
+.delete{
+  align-content: center;
+  width:150px;
+  border-radius: 100px;
+  margin-left: 35%;
+  margin-top: 20px;
+}
+table, th, td {
+  border: 1px solid black;
+  width:10%
+}
+.logout{
+  float:right;
+  background-color: orange;
+  color:white;
+  margin-bottom: 10px;
 }

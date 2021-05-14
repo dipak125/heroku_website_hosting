@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { BrowserRouter } from "react-router-dom";
 import {useHistory,Link} from "react-router-dom"
+import logo from "./img/dropdown.png";
 
 //import './Details.css'
 import Foot from './Foot'
@@ -17,24 +18,43 @@ import NavLog from "./NavLog";
 
 
 
-const Doctor=()=>{
+const Doctor=(props)=>{
+  const history=useHistory();
+ if(localStorage.getItem("active")==0)
+ {
+  history.push("/")
+ }
+ const [state1,setState1]=useState({
+   name:""
+ })
   const[state,setState]=useState({
       patient:[],
       patientno:"",
-  })
-  const regno=3
-let options
-const history=useHistory()
-useEffect(()=>{
-  axios.get(" http://localhost:4000/patient ").then(res=>{
      
-     const option=res.data.filter(d=> d.regno==regno)
+  })
+
+let options
+
+
+useEffect(()=>{
+    axios.get( `http://localhost:4000/doctor/${props.regno}`).then(res=>{
+     console.log("name is",res.data.name)
+      setState1({
+       ...state1,
+       name:res.data.name,
+     })
+   })
+  axios.get(" http://localhost:4000/patient ").then(res=>{
+    
+     const option=res.data.filter(d=> d.regno==props.regno)
       options=option.map(data=>({
          "label":data.name,
          "value":data.patientno,
+         "regno":data.regno
      }))
      console.log(options)
      setState({
+       ...state,
          patient:options
      })
       
@@ -68,7 +88,7 @@ return(
             color="textSecondary"
             gutterBottom
           >
-            <h4 class='top'><center>Dr: Name: Raz Raza</center></h4>
+            <h4 class='top'><center>{state1.name}</center></h4>
           </Typography>
           <Typography variant="h5" component="h2">
             How are you ?
@@ -89,6 +109,7 @@ return(
         <CardActions>
           <Button size="small">Stay Safe.....</Button>
         </CardActions>
+        <img src={logo} alt="" className="patient" />
       </Card>
       <Foot/>
     </div>

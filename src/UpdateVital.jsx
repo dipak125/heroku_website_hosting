@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import moment from "moment";
 import axios from "axios";
+import NavLog from './NavLog'
+import Foot from './Foot'
+import {useHistory} from "react-router-dom";
 import {
   Grid,
   Paper,
@@ -16,6 +19,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { KeyboardDatePicker } from '@material-ui/pickers'
 const UpdateVital = (props) => {
+  const history=useHistory()
+  if(localStorage.getItem("active")==0)
+  {
+    history.push("/")
+  }
 
   useEffect(()=>{
     axios.get(`http://localhost:4000/patient/${props.patientno}`).then(res=>{
@@ -35,6 +43,8 @@ const UpdateVital = (props) => {
             patientno:res.data.patientno,
             disease:res.data.disease,
             regno:res.data.regno,
+            gender:res.data.gender,
+            age:res.data.age
 
       })
       
@@ -57,7 +67,9 @@ const UpdateVital = (props) => {
         dob:"",
         patientno:"",
         disease:"",
-        regno:""
+        regno:"",
+        gender:"",
+        age:""
   })
 
   const change=(e)=>{
@@ -71,13 +83,29 @@ const UpdateVital = (props) => {
       })
      
   }
-
+  const date=(e)=>{
+    const name=e.target.name;
+   
+    const value=moment(e.target.value).format("MM-DD-YYYY");
+   
+    setState({
+      ...state,
+      vital:{
+        ...state.vital,
+        [name]:value
+      }
+    })
+  }
+   
   const submit=()=>{
+   
     
-   let data=state.detail.filter(data=>data.date!==state.vital.date);
+      if(state.vital.date && state.vital.ol && state.vital.bp && state.vital.temp && state.vital.remark)
+      {
+        let data=state.detail.filter(data=>data.date!==state.vital.date);
      
         data.push(state.vital)
-
+       
         axios.post(`http://localhost:4000/patient/${state.patientno}`,{
           name:state.name,
           dob:state.dob,
@@ -85,9 +113,21 @@ const UpdateVital = (props) => {
           detail:data,
           disease:state.disease,
           regno:state.regno,
+          gender:state.gender,
+          age:state.age
         })
+        alert("data inserted successfully")
+        window.location.reload()
+      }
+      else{
+       ;
+
+        alert("please enter the data")
+      } 
        
-  }
+      }
+       
+  
     
   const paperStyle = {
     padding: 20,
@@ -100,7 +140,10 @@ const UpdateVital = (props) => {
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "30px 0" };
   return (
+    <>
+    <NavLog/>
     <div class="bg_image">
+      <div class="container">
       <Grid>
         <Paper elevation={30} style={paperStyle}>
           <Grid align="center">
@@ -115,31 +158,34 @@ const UpdateVital = (props) => {
               type="date"
               name="date"
               fullWidth
-              onChange={change}
+              onChange={date}
               
             />
 
           <TextField
             label="Oxygen Level"
-            placeholder="Oxygen Level"
+            placeholder="Oxygen Level(%)"
             fullWidth
             name="ol"
+            type="number"
             onChange={change}
             
           />
           <TextField
             label="Body Temp"
-            placeholder="Body Temp"
+            placeholder="Body Temp(c)"
             fullWidth
             required
+            type="number"
             name="temp"
             onChange={change}
           />
           <TextField label="BP" 
-          placeholder="BP" 
+          placeholder="Blood prssure(mmHg)" 
           fullWidth 
           required
           name="bp"
+          
           onChange={change}
           
           />
@@ -165,7 +211,10 @@ const UpdateVital = (props) => {
           </Button>
         </Paper>
       </Grid>
+      <Foot/>
     </div>
+    </div>
+    </>
   );
 };
 export default UpdateVital;

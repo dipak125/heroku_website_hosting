@@ -2,13 +2,20 @@
 
 import React, {Component, useContext} from 'react'
 import axios from 'axios'
-import {Link} from "react-router-dom";
+import {Link,} from "react-router-dom";
 import NavLog from "./NavLog";
 import "./App.css";
+import Foot from "./Foot.jsx";
 
 
 export default class Patient extends Component {
+  
   constructor(props) {
+   
+    if(localStorage.getItem("active")==0)
+    {
+      window.location.href="/"
+    }
       super(props);
       this.state = {
           s:[],
@@ -77,6 +84,7 @@ export default class Patient extends Component {
               </table>
                </div>
           </div>
+          <Foot/>
           </div>
           </>
       )

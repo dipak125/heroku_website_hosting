@@ -13,8 +13,15 @@ const Login=(props)=>{
     const[state,setState]=useState({
         email:"",
         password:"",
+       
+       
+        
     });
-  let users=''; 
+    const[state1,setState1]=useState({
+      regno:""
+    })
+    
+  
   const change=(e)=>{
       e.preventDefault();
       const{name,value}=e.target;
@@ -28,33 +35,48 @@ const Login=(props)=>{
   const submit=()=>{
      
       axios.get("http://localhost:4000/user").then(res=>{
+        
+          // users=res.data,
+          console.log("reg data is==",res.data[0].regno)
          
-          users=res.data
-         
+          
          //history.push("/home"); 
          console.log(res.data)
        let e=true 
-       let a=0
-       for(let i=0;i<res.data.length;i++){
-         if(res.data[i].email==state.email)
-         {
-           a++
-           if(res.data[i].password==state.password)
-           {
-             console.log(res.data[i].email,res.data[i].password,state.email,state.password)
-             e=false
-             
-             history.push("/dropdown");
-            // alert("Sucessfully")
-
-           }
-          
-         }
-       }
-      if(e==true && a!=0)
+      
+      if(state.email && state.password)
       {
-        alert("Invalid")
-        
+        for(let i=0;i<res.data.length;i++){
+          if(res.data[i].email==state.email)
+          {
+            
+            if(res.data[i].password==state.password)
+            {
+              console.log(res.data[i].email,res.data[i].password,state.email,state.password)
+              e=false
+                  localStorage.setItem("active",1)
+                  
+                history.push(`/dropdown/${res.data[i].regno}`);
+             // alert("Sucessfully")
+ 
+            }
+           
+          }
+        }
+       if(e==true )
+       {
+         alert("Invalid email or password")
+         
+       }
+      }
+      else{
+       if(state.email)
+       {
+         alert("please enter the password")
+       }
+       else{
+         alert("please enter the email")
+       }
       }
              
               
@@ -122,12 +144,9 @@ const Login=(props)=>{
                     }
                     label="Remember me"
                  />
+                <Typography> <Link href={`/changedoctor`}>Change Password</Link></Typography>
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth onClick = {submit}>Sign in</Button>
-                <Typography >
-                <Link href="#" >
-                        Forgot password ?
-                </Link>
-                </Typography>
+                
                 <img src={logo} alt="" className="doctor" />
             </Paper>
             

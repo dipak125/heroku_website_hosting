@@ -6,6 +6,7 @@ import Foot from './Foot'
 import Toolbar from './Toolbar'
 
 function App() {
+  console.log("===========",localStorage.getItem("active"))
   return (
     <div class="float-container">
       <div><Toolbar/></div>

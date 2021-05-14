@@ -19,6 +19,10 @@ const styles = {
 };
 
 function SimpleAppBar(props) {
+  const logout=()=>{
+    localStorage.setItem("admin",0)
+    window.location.href="/"
+  }
   const { classes } = props;
   const toolStyle = { justifyContent: 'center' }
   return (
@@ -31,6 +35,7 @@ function SimpleAppBar(props) {
             </Typography> */}
             <Typography variant="h6" color="inherit" className={classes.typography}>
            <center><strong>Welcome to INT Foundation</strong></center>
+           {/* <button class="logout" onClick={logout}>logout</button> */}
           </Typography>
         </Toolbar>
       </AppBar>

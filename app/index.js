@@ -3,6 +3,7 @@ const express=require("express");
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const cors=require("cors");
+const nodemailer = require('nodemailer');
 const dbrl="mongodb+srv://admin:dipak123@cluster0.hefx5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
@@ -19,6 +20,14 @@ mongoose.connect(dbrl,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log("connected")
 }).catch(()=>{
     console.log("not connected")
+})
+
+const AdminSchema=mongoose.Schema({
+    email:"",
+    password:"",
+},
+{
+    timestamps:true
 })
 
 const DoctorSchema=mongoose.Schema({
@@ -39,30 +48,110 @@ const PatientSchema=mongoose.Schema({
     disease:"",
     detail:[],
     regno:"",
+    gender:"",
+    age:"",
 },
 {
     timestamps:true
 })
 const UserSchema=mongoose.Schema({
-    name:"",
+    regno:"",
     email:"",
     password:"",
 },
 {
     timestamps:true
 })
+const Admin=mongoose.model("admin",AdminSchema)
 const User=mongoose.model("user",UserSchema);
 const Doctor=mongoose.model("doctor",DoctorSchema);
 const Patient=mongoose.model("patient",PatientSchema);
 
+
+app.delete("/patient/:id",(req,res)=>{
+    console.log("deleting",req.params.id)
+    Patient.findByIdAndRemove(req.params.id).then(patient=>{
+        patient.find().then(data=>{
+            res.send(data)
+        }).catch((err)=>{
+            res.send({
+                message:"unable to delete"
+            })
+        })
+    }).catch((err)=>{
+        res.send({
+            message:"unable to delete"
+        })
+    })
+})
+
+app.post("/admin",(req,res)=>{
+    const admin=new Admin({
+        email:req.body.email,
+        password:req.body.password
+    })
+    console.log(admin)
+    admin.save().then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"error"
+        })
+    })
+})
+app.get("/admin",(req,res)=>{
+    
+    Admin.find().then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"error"
+        })
+    })
+})
+
 app.post("/user",(req,res)=>{
     const user=new User({
-        name:req.body.name,
+        regno:req.body.regno,
         email:req.body.email,
         password:req.body.password,
+        
     })
     console.log(user)
     user.save().then(data=>{
+
+      
+            var smtpTransport = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                secureConnection: false,
+                port: 587,
+                auth: {
+                    user: "coolrazi1998@gmail.com",// your actual email
+                    pass: "razi1998!"       // your actual password
+                }
+            });
+            var mailOptions = {
+                from: "coolrazi1998@gmail.com",
+                to: req.body.email,
+                bcc: "", // bcc is optional.
+                subject: "Greeting, you have been registered in our database.",
+                text: `email=${req.body.email}\n password=${req.body.password}\n link=${req.body.location}\n regno=${req.body.regno}`
+            }
+            //console.log(mailOptions);
+            smtpTransport.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                    console.log(error);
+                    res.end("error");
+                    console.log("error")
+                } else {
+                    //console.log("Message sent: " + response.message);
+                    res.end("sent");
+                    console.log("email is sent")
+                }
+            });
+           
+        
+
         res.send(data)
     }).catch((err)=>{
         res.send({
@@ -88,6 +177,8 @@ app.post("/patient",(req,res)=>{
         disease:req.body.disease,
         detail:req.body.detail,
         regno:req.body.regno,
+        gender:req.body.gender,
+        age:req.body.age
     })
     console.log(patient);
     patient.save().then(data=>{
@@ -108,6 +199,9 @@ app.post("/doctor",(req,res)=>{
   })
   console.log(doctor);
   doctor.save().then(data=>{
+
+    
+
       res.send(data)
   }).catch((err)=>{
       res.send({
@@ -125,7 +219,7 @@ app.get("/patient",(req,res)=>{
     })
 })
 app.get("/patient/:patientno",(req,res)=>{
-    console.log("running",req.params.patientno)
+   
     Patient.findOne({patientno:req.params.patientno}
      ).then(data=>{
         res.send(data)
@@ -135,8 +229,28 @@ app.get("/patient/:patientno",(req,res)=>{
         })
     })
 })
+app.get("/user/:id",(req,res)=>{
+    console.log("gettin======",req.params.id)
+    User.findOne({regno:req.params.id}).then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"err"
+        })
+    })
+})
+app.get("/doctor/:id",(req,res)=>{
+    console.log("regno is coming",req.params.regno)
+    Doctor.findOne({regno:req.params.id}).then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"error"
+        })
+    })
+})
 app.post("/patient/:patientno",(req,res)=>{
-    console.log("running",req.params.patientno)
+  
     Patient.findOneAndUpdate({patientno:req.params.patientno},{
         name:req.body.name,
         dob:req.body.dob,
@@ -144,11 +258,40 @@ app.post("/patient/:patientno",(req,res)=>{
         disease:req.body.disease,
         detail:req.body.detail,
         regno:req.body.regno,
+        age:req.body.age,
+        gender:req.body.gender
     },{new:true}).then(data=>{
         res.send(data)
     }).catch((err)=>{
         res.send({
             message:"unable to get data"
+        })
+    })
+})
+app.post("/admin/:id",(req,res)=>{
+    console.log("adming updating",req.body.password)
+    Admin.findByIdAndUpdate(req.params.id,{
+        email:req.body.email,
+        password:req.body.password,
+    },{new: true}).then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"err"
+        })
+    })
+})
+app.post("/user/:id",(req,res)=>{
+    console.log("posting=====",req.params.id)
+    User.findOneAndUpdate({regno:req.params.id},{
+        regno:req.body.regno,
+        name:req.body.name,
+        password:req.body.password,
+    },{new:true}).then(data=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send({
+            message:"err"
         })
     })
 })
@@ -161,6 +304,10 @@ app.get("/doctor",(req,res)=>{
         })
     })
 })
+
+
+
+
 
 
 app.listen(4000,()=>{
