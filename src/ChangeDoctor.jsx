@@ -18,9 +18,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const ChangeDoctor = () => {
     const history = useHistory()
-    if (localStorage.getItem("admin") == 0) {
-        history.push("/")
-    }
+    
    
   
     const [state, setState] = useState({

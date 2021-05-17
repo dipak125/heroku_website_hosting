@@ -18,9 +18,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const ChangeAdmin = () => {
     const history = useHistory()
-    if (localStorage.getItem("admin") == 0) {
-        history.push("/")
-    }
+   
    
     useEffect(() => {
         axios.get("http://localhost:4000/admin/").then(res => {

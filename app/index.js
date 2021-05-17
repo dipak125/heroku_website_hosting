@@ -135,7 +135,8 @@ app.post("/user",(req,res)=>{
                 to: req.body.email,
                 bcc: "", // bcc is optional.
                 subject: "Greeting, you have been registered in our database.",
-                text: `email=${req.body.email}\n password=${req.body.password}\n link=${req.body.location}\n regno=${req.body.regno}`
+                text: 
+                `email=${req.body.email}\n password=${req.body.password}\n link=${req.body.location}\n regno=${req.body.regno}`
             }
             //console.log(mailOptions);
             smtpTransport.sendMail(mailOptions, function (error, response) {
