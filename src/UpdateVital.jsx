@@ -26,7 +26,7 @@ const UpdateVital = (props) => {
   }
 
   useEffect(()=>{
-    axios.get(`http://localhost:4000/patient/${props.patientno}`).then(res=>{
+    axios.get(`https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`).then(res=>{
       const detail1=res.data.detail.map(data=>({
         "date":data.date,
         "ol":data.ol,
@@ -106,7 +106,7 @@ const UpdateVital = (props) => {
      
         data.push(state.vital)
        
-        axios.post(`http://localhost:4000/patient/${state.patientno}`,{
+        axios.post(`https://fierce-crag-28247.herokuapp.com/patient/${state.patientno}`,{
           name:state.name,
           dob:state.dob,
           patientno:state.patientno,

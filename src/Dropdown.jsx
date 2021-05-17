@@ -37,14 +37,14 @@ let options
 
 
 useEffect(()=>{
-    axios.get( `http://localhost:4000/doctor/${props.regno}`).then(res=>{
+    axios.get( `https://fierce-crag-28247.herokuapp.com/doctor/${props.regno}`).then(res=>{
      console.log("name is",res.data.name)
       setState1({
        ...state1,
        name:res.data.name,
      })
    })
-  axios.get(" http://localhost:4000/patient ").then(res=>{
+  axios.get(" https://fierce-crag-28247.herokuapp.com/patient ").then(res=>{
     
      const option=res.data.filter(d=> d.regno==props.regno)
       options=option.map(data=>({

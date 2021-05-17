@@ -17,7 +17,7 @@ const Login=()=>{
         password1:"",
     })
     useEffect(()=>{
-        axios.get("http://localhost:4000/admin").then(res=>{
+        axios.get("https://fierce-crag-28247.herokuapp.com/admin").then(res=>{
           
                 setState({
                     ...state,

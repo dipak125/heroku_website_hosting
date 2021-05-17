@@ -23,7 +23,7 @@ const Delete=(props)=>{
             
         })
         useEffect(()=>{
-            axios.get(` http://localhost:4000/patient/${props.patientno}`).then(res=>{
+            axios.get(` https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`).then(res=>{
                 
                 console.log("id is",res.data._id)
                 setState({
@@ -39,7 +39,7 @@ const Delete=(props)=>{
         },[])
        const submit=()=>{
         
-            axios.delete(`http://localhost:4000/patient/${state.id}`)
+            axios.delete(`https://fierce-crag-28247.herokuapp.com/patient/${state.id}`)
             history.push("/delete")
 
        }
@@ -163,7 +163,7 @@ export default Delete;
             
 //         })
 //         useEffect(()=>{
-//             axios.get(` http://localhost:4000/patient/${props.patientno}`).then(res=>{
+//             axios.get(` https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`).then(res=>{
                 
 //                 console.log("id is",res.data._id)
 //                 setState({
@@ -179,7 +179,7 @@ export default Delete;
 //         },[])
 //        const submit=()=>{
         
-//             axios.delete(`http://localhost:4000/patient/${state.id}`)
+//             axios.delete(`https://fierce-crag-28247.herokuapp.com/patient/${state.id}`)
 //             history.push("/delete")
 
 //        }

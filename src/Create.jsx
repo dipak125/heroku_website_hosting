@@ -26,7 +26,7 @@ const Create=()=>{
         email:[]
       })
     useEffect(()=>{
-      axios.get("http://localhost:4000/user").then(res=>{
+      axios.get("https://fierce-crag-28247.herokuapp.com/user").then(res=>{
        
         const emails=res.data.map(data=>({
           "email":data.email
@@ -57,7 +57,7 @@ const Create=()=>{
          {
           if(state.email && state.regno && state.password)
           {
-            axios.post("http://localhost:4000/user",{
+            axios.post("https://fierce-crag-28247.herokuapp.com/user",{
               regno:state.regno,
               email:state.email,
               password:state.password,

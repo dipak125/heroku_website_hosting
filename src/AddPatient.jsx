@@ -55,7 +55,7 @@ const AddPatient=()=>{
     })
   
     // useEffect(()=>{
-    //   axios.get("http://localhost:4000/doctor").then(res=>{
+    //   axios.get("https://fierce-crag-28247.herokuapp.com/doctor").then(res=>{
     //     const arr=res.data.map(data=>({
     //       "label" : data.regno,
     //       "name":"regno"
@@ -71,7 +71,7 @@ const AddPatient=()=>{
       getOption()
     },[])
     async function getOption(){
-      const res=await axios.get("http://localhost:4000/doctor");
+      const res=await axios.get("https://fierce-crag-28247.herokuapp.com/doctor");
      const arr=res.data.map(data=>({
        "label":`${data.name}(${data.regno})`,
        "regno":data.regno,
@@ -135,7 +135,7 @@ const AddPatient=()=>{
       console.log(state)
       if(state.name && state.dob && state.patientno && state.disease && state.regno  && state.gender && state.age)
       {
-        axios.post("http://localhost:4000/patient",{
+        axios.post("https://fierce-crag-28247.herokuapp.com/patient",{
           name:state.name,
           dob:state.dob,
           patientno:state.patientno,

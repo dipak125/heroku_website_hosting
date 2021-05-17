@@ -129,7 +129,7 @@ const Download = (props) => {
   }
    
   useEffect(() => {
-    axios.get(`http://localhost:4000/patient/10`).then(res => {
+    axios.get(`https://fierce-crag-28247.herokuapp.com/patient/10`).then(res => {
      
       const detail = res.data.detail.map(data => ({
         "date": data.date,

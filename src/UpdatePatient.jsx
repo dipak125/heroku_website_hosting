@@ -59,7 +59,7 @@ const UpdatePatient = (props) => {
   })
   useEffect(() => {
     
-    axios.get(`http://localhost:4000/patient/${props.patientno}`).then(res => {
+    axios.get(`https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`).then(res => {
       console.log("date is", res.data.dob)
       setState({
         ...state,
@@ -73,7 +73,7 @@ const UpdatePatient = (props) => {
         age: res.data.age
 
       })
-      axios.get("http://localhost:4000/doctor").then(res => {
+      axios.get("https://fierce-crag-28247.herokuapp.com/doctor").then(res => {
 
         const doctors = res.data.map(data => ({
           "label": `${data.name}(${data.regno})`,
@@ -129,7 +129,7 @@ const UpdatePatient = (props) => {
   const submit = (e) => {
 
     if (state.name && state.dob && state.disease && state.regno && state.age && state.gender) {
-      axios.post(` http://localhost:4000/patient/${props.patientno}`, {
+      axios.post(` https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`, {
         name: state.name,
         dob: moment(state.dob).format("MM/DD/YYYY"),
         disease: state.disease,
