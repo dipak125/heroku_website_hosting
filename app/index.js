@@ -4,6 +4,7 @@ const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const cors=require("cors");
 const nodemailer = require('nodemailer');
+const port=process.env.PORT || 8000
 const dbrl="mongodb+srv://admin:dipak123@cluster0.hefx5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
@@ -311,6 +312,6 @@ app.get("/doctor",(req,res)=>{
 
 
 
-app.listen(4000,()=>{
-    console.log("4000 is running")
+app.listen(port,()=>{
+    console.log("8000 is running")
 })
