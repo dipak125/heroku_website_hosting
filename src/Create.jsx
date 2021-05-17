@@ -26,7 +26,7 @@ const Create=()=>{
         email:[]
       })
     useEffect(()=>{
-      axios.get("https://fierce-crag-28247.herokuapp.com/user").then(res=>{
+      axios.get("https://dipak-vital-tracker.herokuapp.com/user").then(res=>{
        
         const emails=res.data.map(data=>({
           "email":data.email
@@ -57,7 +57,7 @@ const Create=()=>{
          {
           if(state.email && state.regno && state.password)
           {
-            axios.post("https://fierce-crag-28247.herokuapp.com/user",{
+            axios.post("https://dipak-vital-tracker.herokuapp.com/user",{
               regno:state.regno,
               email:state.email,
               password:state.password,

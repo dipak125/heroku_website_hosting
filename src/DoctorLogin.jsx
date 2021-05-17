@@ -34,7 +34,7 @@ const Login=(props)=>{
   let history=useHistory();
   const submit=()=>{
      
-      axios.get("https://fierce-crag-28247.herokuapp.com/user").then(res=>{
+      axios.get("https://dipak-vital-tracker.herokuapp.com/user").then(res=>{
         
           // users=res.data,
           console.log("reg data is==",res.data[0].regno)

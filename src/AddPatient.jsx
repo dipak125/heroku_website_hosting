@@ -55,7 +55,7 @@ const AddPatient=()=>{
     })
   
     // useEffect(()=>{
-    //   axios.get("https://fierce-crag-28247.herokuapp.com/doctor").then(res=>{
+    //   axios.get("https://dipak-vital-tracker.herokuapp.com/doctor").then(res=>{
     //     const arr=res.data.map(data=>({
     //       "label" : data.regno,
     //       "name":"regno"
@@ -71,7 +71,7 @@ const AddPatient=()=>{
       getOption()
     },[])
     async function getOption(){
-      const res=await axios.get("https://fierce-crag-28247.herokuapp.com/doctor");
+      const res=await axios.get("https://dipak-vital-tracker.herokuapp.com/doctor");
      const arr=res.data.map(data=>({
        "label":`${data.name}(${data.regno})`,
        "regno":data.regno,
@@ -135,7 +135,7 @@ const AddPatient=()=>{
       console.log(state)
       if(state.name && state.dob && state.patientno && state.disease && state.regno  && state.gender && state.age)
       {
-        axios.post("https://fierce-crag-28247.herokuapp.com/patient",{
+        axios.post("https://dipak-vital-tracker.herokuapp.com/patient",{
           name:state.name,
           dob:state.dob,
           patientno:state.patientno,

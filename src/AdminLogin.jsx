@@ -17,7 +17,7 @@ const Login=()=>{
         password1:"",
     })
     useEffect(()=>{
-        axios.get("https://fierce-crag-28247.herokuapp.com/admin").then(res=>{
+        axios.get("https://dipak-vital-tracker.herokuapp.com/admin").then(res=>{
           
                 setState({
                     ...state,

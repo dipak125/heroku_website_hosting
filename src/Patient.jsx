@@ -24,7 +24,7 @@ export default class Patient extends Component {
       };
   }
   gettodosData() {
-      axios.get( `https://fierce-crag-28247.herokuapp.com/patient/${this.state.patientno}`).then(res => {
+      axios.get( `https://dipak-vital-tracker.herokuapp.com/patient/${this.state.patientno}`).then(res => {
                     console.log("data is",res.data)
                     this.setState({
                         ...this.state,
