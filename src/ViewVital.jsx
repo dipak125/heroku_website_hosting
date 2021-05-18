@@ -135,7 +135,7 @@ const ViewVital = (props) => {
   }
    
   useEffect(() => {
-    axios.get(`https://dipak-vital-tracker.herokuapp.com/patient/${props.patientno}`).then(res => {
+    axios.get(`https://fierce-crag-28247.herokuapp.com/patient/${props.patientno}`).then(res => {
      
       const detail = res.data.detail.map(data => ({
         "date": data.date,

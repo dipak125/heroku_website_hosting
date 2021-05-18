@@ -31,7 +31,7 @@ const DrPortal = (props) => {
   }
   const submit = () => {
 
-    axios.get("https://dipak-vital-tracker.herokuapp.com/login").then(res => {
+    axios.get("https://fierce-crag-28247.herokuapp.com/login").then(res => {
 
       users = res.data
 

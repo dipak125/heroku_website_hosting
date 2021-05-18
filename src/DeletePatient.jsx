@@ -15,7 +15,7 @@ const Delete=()=>{
       patient:[]
   })
   useEffect(()=>{
-      axios.get("https://dipak-vital-tracker.herokuapp.com/patient").then(res=>{
+      axios.get("https://fierce-crag-28247.herokuapp.com/patient").then(res=>{
           setState({
               ...state,
               patient:res.data
@@ -24,7 +24,7 @@ const Delete=()=>{
   },[])
   
     const confirm=()=>{
-      axios.delete(`https://dipak-vital-tracker.herokuapp.com/patient/${state.patientno}`)
+      axios.delete(`https://fierce-crag-28247.herokuapp.com/patient/${state.patientno}`)
     }
     return(
       <>

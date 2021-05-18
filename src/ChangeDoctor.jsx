@@ -44,7 +44,7 @@ const ChangeDoctor = () => {
     const submit = () => {
 
         console.log("regno is",state1.regno)
-        axios.get(`https://dipak-vital-tracker.herokuapp.com/user/${state1.regno}`).then(res => {
+        axios.get(`https://fierce-crag-28247.herokuapp.com/user/${state1.regno}`).then(res => {
 
            setState({
                ...state,
@@ -58,7 +58,7 @@ const ChangeDoctor = () => {
        
       
             if (state1.password1  && state1.password2  && state1.password3 ) {
-                axios.post(`https://dipak-vital-tracker.herokuapp.com/user/${state1.regno}`, {
+                axios.post(`https://fierce-crag-28247.herokuapp.com/user/${state1.regno}`, {
                     regno: state1.regno,
                     email: state.email,
                     password: state1.password2,

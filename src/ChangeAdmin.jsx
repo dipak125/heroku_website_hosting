@@ -21,7 +21,7 @@ const ChangeAdmin = () => {
    
    
     useEffect(() => {
-        axios.get("https://dipak-vital-tracker.herokuapp.com/admin/").then(res => {
+        axios.get("https://fierce-crag-28247.herokuapp.com/admin/").then(res => {
             console.log("admin===",res.data[0])
 
            setState({
@@ -62,7 +62,7 @@ const ChangeAdmin = () => {
                {
                         if(state1.password2==state1.password3)
                         {
-                            axios.post(`https://dipak-vital-tracker.herokuapp.com/admin/${state.id}`, {
+                            axios.post(`https://fierce-crag-28247.herokuapp.com/admin/${state.id}`, {
                    
                                 email: state.email,
                                 password: state1.password2,
