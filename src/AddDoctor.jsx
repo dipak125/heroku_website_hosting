@@ -27,7 +27,7 @@ const AddDoctor=()=>{
     doctor:[]
   })
  useEffect(()=>{
-    axios.get("http://localhost:4000/doctor").then(res=>{
+    axios.get("https://fierce-crag-28247.herokuapp.com/doctor").then(res=>{
       const doctors=res.data.map(data=>({
         "regno":data.regno
       }))
@@ -71,7 +71,7 @@ const AddDoctor=()=>{
       {
         if(state.name && state.specialization && state.regno && state.degree && state.mob)
         {
-         axios.post("http://localhost:4000/doctor",{
+         axios.post("https://fierce-crag-28247.herokuapp.com/doctor",{
            name:state.name,
            specialization:state.specialization,
            regno:state.regno,
